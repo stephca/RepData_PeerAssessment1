@@ -68,7 +68,8 @@ plot(avg_by_interval$interval, avg_by_interval$avgSteps,
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
 
 ```r
-##Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+## Which 5-minute interval, on average across all the days in the dataset,
+## contains the maximum number of steps?
 avg_by_interval[which.max(avg_by_interval$avgSteps),]
 ```
 
@@ -82,7 +83,8 @@ avg_by_interval[which.max(avg_by_interval$avgSteps),]
 Note that there are a number of days/intervals where there are missing values (coded as NA). The presence of missing days may introduce bias into some calculations or summaries of the data.
 
 ```r
-## Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
+## Calculate and report the total number of missing values in the dataset 
+## (i.e. the total number of rows with NAs)
 sum(is.na(all_data$steps))
 ```
 
@@ -155,10 +157,14 @@ Conclusion: There is minimal impact on replacing the NAs with the 5-minute inter
 ## Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating 
 ## whether a given date is a weekday or weekend day.
 all_data_no_NA<-transform(all_data_no_NA, weekdaytxt=(weekdays(date)))
-all_data_no_NA<-transform(all_data_no_NA, weekday=(ifelse (weekdays(date) %in% c('Sunday', 'Saturday'), 'weekend', 'weekday')))
+all_data_no_NA<-transform(all_data_no_NA, 
+                  weekday=(ifelse (weekdays(date) %in% c('Sunday', 'Saturday'), 
+                 'weekend', 'weekday')))
 all_data_no_NA$weekday<-as.factor(all_data_no_NA$weekday)
 
-## Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) ## and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
+## Make a panel plot containing a time series plot (i.e. type = "l") of the 
+## 5-minute interval (x-axis) ## and the average number of steps taken, 
+## averaged across all weekday days or weekend days (y-axis).
 avg_by_interval<-aggregate(steps~interval+weekday, data=all_data_no_NA, mean)
 library(lattice)
 xyplot(steps ~interval | weekday, 
@@ -166,7 +172,6 @@ xyplot(steps ~interval | weekday,
        layout = c(1,2),
        type = "l", 
        xlab="5 minute Interval", ylab="Average steps", 
-       main="Average steps taken per day"
        )
 ```
 
